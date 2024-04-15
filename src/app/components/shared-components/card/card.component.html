@@ -1,0 +1,16 @@
+<div class="h-full">
+  <div class="p-4 cards border-light flex flex-col h-full">
+    <span class="name mb-3 text-blue-500 text-lg font-semibold">{{
+      item?.name
+    }}</span>
+    <span class="description mb-3">{{
+      item?.description ? item?.description : "No Description found"
+    }}</span>
+    <span
+      *ngIf="item?.language"
+      class="tag mb-3 bg-gradient-to-r from-orange-500 to-pink-500 text-white py-1 px-2 rounded-lg"
+      >{{ item?.language }}</span
+    >
+    <span *ngIf="!item?.language" class="text-red-500">No Language found</span>
+  </div>
+</div>

@@ -1,0 +1,150 @@
+<div class="repo-list">
+  <div class="flex gap-4 items-center flex-wrap sm:flex-nowrap">
+    <div class="logo">
+      <img
+        [src]="userData.avatar_url"
+        alt="url"
+        *ngIf="!isLoadingUserDetails"
+        class="w-36 h-36 rounded-full"
+      />
+      <p-skeleton
+        shape="circle"
+        size="144px"
+        *ngIf="isLoadingUserDetails"
+        class="w-36 h-36 rounded-full"
+      ></p-skeleton>
+    </div>
+    <div class="details flex flex-col gap-2">
+      <div *ngIf="!isLoadingUserDetails" class="name text-2xl font-bold">
+        {{ userData.name }}
+      </div>
+      <div *ngIf="isLoadingUserDetails" class="name text-2xl font-bold">
+        <p-skeleton width="180px" height="16px"></p-skeleton>
+      </div>
+      <div *ngIf="!isLoadingUserDetails" class="bio">{{ userData.bio }}</div>
+      <div *ngIf="isLoadingUserDetails" class="bio">
+        <p-skeleton width="180px" height="16px"></p-skeleton>
+      </div>
+
+      <div class="location flex items-center">
+        <span>
+          <svg
+            fill="#000000"
+            version="1.1"
+            id="Capa_1"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            viewBox="0 0 395.71 395.71"
+            xml:space="preserve"
+            class="w-5 h-5"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              <g>
+                <path
+                  d="M197.849,0C122.131,0,60.531,61.609,60.531,137.329c0,72.887,124.591,243.177,129.896,250.388l4.951,6.738 c0.579,0.792,1.501,1.255,2.471,1.255c0.985,0,1.901-0.463,2.486-1.255l4.948-6.738c5.308-7.211,129.896-177.501,129.896-250.388 C335.179,61.609,273.569,0,197.849,0z M197.849,88.138c27.13,0,49.191,22.062,49.191,49.191c0,27.115-22.062,49.191-49.191,49.191 c-27.114,0-49.191-22.076-49.191-49.191C148.658,110.2,170.734,88.138,197.849,88.138z"
+                ></path>
+              </g>
+            </g>
+          </svg>
+        </span>
+        <span *ngIf="!isLoadingUserDetails" class="ml-2">{{
+          userData.location
+        }}</span>
+        <span *ngIf="isLoadingUserDetails">
+          <p-skeleton width="160px" height="16px"></p-skeleton
+        ></span>
+      </div>
+
+      <div class="twitter_username" *ngIf="!isLoadingUserDetails">
+        Twitter: https://twitter.com/{{ userData.twitter_username }}
+      </div>
+      <div class="twitter_username" *ngIf="isLoadingUserDetails">
+        <p-skeleton width="180px" height="16px"></p-skeleton>
+      </div>
+    </div>
+  </div>
+
+  <div class="link mt-4">
+    <a [href]="userData?.html_url" class="flex items-center">
+      <svg
+        fill="#000000"
+        version="1.1"
+        id="Capa_1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink"
+        width="64px"
+        height="64px"
+        viewBox="0 0 442.25 442.25"
+        xml:space="preserve"
+        stroke="#000000"
+        stroke-width="0.0044224600000000005"
+        class="w-6 h-6"
+      >
+        <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+        <g
+          id="SVGRepo_tracerCarrier"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></g>
+        <g id="SVGRepo_iconCarrier">
+          <g>
+            <g>
+              <path
+                d="M409.657,32.474c-43.146-43.146-113.832-43.146-156.978,0l-84.763,84.762c29.07-8.262,60.589-6.12,88.129,6.732 l44.063-44.064c17.136-17.136,44.982-17.136,62.118,0c17.136,17.136,17.136,44.982,0,62.118l-55.386,55.386l-36.414,36.414 c-17.136,17.136-44.982,17.136-62.119,0l-47.43,47.43c11.016,11.017,23.868,19.278,37.332,24.48 c36.415,14.382,78.643,8.874,110.467-16.219c3.06-2.447,6.426-5.201,9.18-8.262l57.222-57.222l34.578-34.578 C453.109,146.306,453.109,75.926,409.657,32.474z"
+              ></path>
+              <path
+                d="M184.135,320.114l-42.228,42.228c-17.136,17.137-44.982,17.137-62.118,0c-17.136-17.136-17.136-44.981,0-62.118 l91.8-91.799c17.136-17.136,44.982-17.136,62.119,0l47.43-47.43c-11.016-11.016-23.868-19.278-37.332-24.48 c-38.25-15.3-83.232-8.262-115.362,20.502c-1.53,1.224-3.06,2.754-4.284,3.978l-91.8,91.799 c-43.146,43.146-43.146,113.832,0,156.979c43.146,43.146,113.832,43.146,156.978,0l82.927-83.845 C230.035,335.719,220.243,334.496,184.135,320.114z"
+              ></path>
+            </g>
+          </g>
+        </g>
+      </svg>
+      <span class="ml-2" *ngIf="!isLoadingUserDetails">{{
+        userData?.html_url
+      }}</span>
+      <span class="ml-2"
+        ><p-skeleton
+          *ngIf="isLoadingUserDetails"
+          width="240px"
+          height="14px"
+        ></p-skeleton
+      ></span>
+    </a>
+  </div>
+
+  <div class="mt-4" *ngIf="!isLoadingRepos && totalRepos">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4"
+    >
+      <div *ngFor="let item of displayRepoData">
+        <app-card [item]="item"></app-card>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4" *ngIf="isLoadingRepos">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4"
+    >
+      <div *ngFor="let item of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+        <p-skeleton width="100%" height="180px"></p-skeleton>
+      </div>
+    </div>
+  </div>
+  <mat-paginator
+    [length]="totalRepos"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    nextPageLabel="test"
+    previousPageLabel="test2"
+    class="mt-3"
+    showFirstLastButtons
+    (page)="onPageChange($event)"
+  ></mat-paginator>
+</div>

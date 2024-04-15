@@ -1,0 +1,23 @@
+$border: #28242f;
+
+.name {
+  font-size: 24px;
+  color: rgb(0 118 255);
+  font-weight: 500;
+}
+
+.border-light {
+  border: 1px solid rgba(56, 56, 56, 0.757);
+  border-radius: 4px;
+}
+
+.tag {
+  padding: 0.3em 0.85em;
+  color: #fff;
+  margin: 0.5em 0.5rem 0.5rem 0;
+  text-transform: uppercase;
+  border: 1px solid #428aca;
+  border-radius: 4px;
+  background: #428aca;
+  width: fit-content;
+}
