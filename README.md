@@ -22,11 +22,11 @@ To run the test cases successfully, follow these steps:
 
 1\. Install dependencies using npm install.
 
-2\. Run the command ng test --include src/app/components/repo-list/repo-list.component.spec.ts --code-coverage in your terminal to run repo-list component's testcases.
+2\. Run the command `ng test --include src/app/components/repo-list/repo-list.component.spec.ts --code-coverage` in your terminal to run repo-list component's testcases.
 
-3\. Run the command ng test --include src/app/services/api.service.spec.ts --code-coverage in your terminal to run api service's testcases.
+3\. Run the command `ng test --include src/app/services/api.service.spec.ts --code-coverage` in your terminal to run api service's testcases.
 
-4\. After running the test cases, you can view the line coverage report by navigating to /coverage/fyle-frontend-challenge/components/repo-list/index.html.
+4\. After running the test cases, you can view the line coverage report by navigating to `/coverage/fyle-frontend-challenge/components/repo-list/index.html`.
 
 ## Note
 

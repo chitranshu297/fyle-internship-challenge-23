@@ -1,6 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -9,11 +10,13 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./repo-list.component.scss'],
 })
 export class RepoListComponent {
+  // Instance for paginator
   @ViewChild(MatPaginator, { static: true })
   paginator: MatPaginator | any;
   // loading variables
   isLoadingRepos: boolean = true;
   isLoadingUserDetails: boolean = true;
+  isError: boolean = false;
 
   // pagination variables
   current_page: number = 1;
@@ -34,12 +37,15 @@ export class RepoListComponent {
   constructor(
     private router: Router,
     private apiService: ApiService,
-    public activatedRoute: ActivatedRoute
+    public activatedRoute: ActivatedRoute,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit() {
-    this.paginator._intl.nextPageLabel = 'Newer';
-    this.paginator._intl.previousPageLabel = 'Older';
+    if (this.paginator) {
+      this.paginator._intl.nextPageLabel = 'Newer';
+      this.paginator._intl.previousPageLabel = 'Older';
+    }
     this.githubUserName = this.activatedRoute.snapshot.params['userName'];
     this.getUserDetails();
   }
@@ -56,10 +62,12 @@ export class RepoListComponent {
         }
       },
       (err) => {
-        // alert(
-        //   err?.error?.message ? err?.error?.message : 'Something went wrong'
-        // );
+        this.toastr.error(
+          err?.error?.message ? err?.error?.message : 'Something went wrong'
+        );
         this.isLoadingUserDetails = false;
+        this.isLoadingRepos = false;
+        this.isError = true;
       }
     );
   }
@@ -78,7 +86,7 @@ export class RepoListComponent {
         this.pageData[page] = res;
       },
       (err) => {
-        alert(
+        this.toastr.error(
           err?.error?.message ? err?.error?.message : 'Something went wrong'
         );
         this.isLoadingRepos = false;

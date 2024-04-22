@@ -4,14 +4,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { RepoListComponent } from './repo-list.component';
 import { ApiService } from 'src/app/services/api.service';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing'; // Import HttpClientTestingModule for mocking HttpClient
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of, throwError } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 describe('RepoListComponent', () => {
   let component: RepoListComponent;
   let fixture: ComponentFixture<RepoListComponent>;
   let apiService: jasmine.SpyObj<ApiService>;
  let paginator: MatPaginator;
+ let toastrService: ToastrService;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [RepoListComponent],
@@ -26,12 +28,17 @@ describe('RepoListComponent', () => {
           provide: ApiService,
           useValue: jasmine.createSpyObj('ApiService', ['getUser', 'getRepos']),
         },
+        {
+          provide: ToastrService,
+          useValue: jasmine.createSpyObj('ToastrService', ['success', 'error']),
+        },
       ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RepoListComponent);
     component = fixture.componentInstance;
     apiService = TestBed.inject(ApiService) as jasmine.SpyObj<ApiService>;
+    toastrService = TestBed.inject(ToastrService);
     paginator = TestBed.createComponent(MatPaginator).componentInstance;
   });
 
@@ -130,12 +137,15 @@ describe('RepoListComponent', () => {
     expect(component.displayRepoData).toEqual(mockRepos);
   });
 
-  it('should initialize paginator properties', () => {
-    component.ngOnInit();
+  it('should set paginator labels if paginator is available', () => {
+  const mockPaginator = jasmine.createSpyObj('MatPaginator', ['_intl']);
+  component.paginator = mockPaginator;
 
-    expect(paginator._intl.nextPageLabel).toBe('Newer');
-    expect(paginator._intl.previousPageLabel).toBe('Older');
-  });
+  component.ngOnInit();
+
+  expect(mockPaginator._intl.nextPageLabel).toBe('Newer');
+  expect(mockPaginator._intl.previousPageLabel).toBe('Older');
+});
 
   it('should update displayRepoData and pageData on onPageChange when page size changes', () => {
     const mockEventData = { pageIndex: 1, pageSize: 15 };

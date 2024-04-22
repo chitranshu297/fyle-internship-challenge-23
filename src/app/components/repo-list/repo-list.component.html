@@ -1,4 +1,4 @@
-<div class="repo-list">
+<div class="repo-list" *ngIf="!isError">
   <div class="flex gap-4 items-center flex-wrap sm:flex-nowrap">
     <div class="logo">
       <img
@@ -147,4 +147,14 @@
     showFirstLastButtons
     (page)="onPageChange($event)"
   ></mat-paginator>
+</div>
+
+<div class="flex justify-center items-center h-full" *ngIf="isError">
+  <img
+    src="/assets/no_data.jpg"
+    alt="Search"
+    class=""
+    aria-hidden="true"
+    height="50vh"
+  />
 </div>
